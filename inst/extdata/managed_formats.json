@@ -1,0 +1,18 @@
+{
+  "custom_bonifiche": {
+    "filename": {
+      "regex": "^([A-Za-z ]+)\\_([0-9a-z]+)\\_([A-Za-z ]+)\\_([0-9]{4})\\.txt$",
+      "elements": [ "azienda", "idfield", "crop", "year" ]
+    },
+    "content": {
+      "fields": [ "longitud", "latitud", "distanza", "flusso", "umidita", "larghezza", "area", "resa", "data", "proteine", "amido", "ndf", "adf", "sost_secca" ],
+      "caption": true,
+      "format": "txt",
+      "sep": ","
+    },
+    "options": {
+      "isdir": true
+    }
+  },
+  "johndeere": null
+}

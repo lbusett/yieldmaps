@@ -1,0 +1,39 @@
+Package: yieldmaps
+Type: Package
+Title: Create yield maps from raw points
+Version: 0.1.0
+Authors@R: c(person("Luigi", "Ranghetti", 
+                    email = "ranghetti.l@irea.cnr.it", 
+                    role = c("aut", "cre"), 
+                    comment = c(ORCID = "0000-0001-6207-5188")))
+Description: This package contains functions used to import raw yield data,
+ filter them, interpolate them and merge in order to produce raster yield maps.
+ The package is under construction (alpha version).
+License: GPL-3 + file LICENSE
+Encoding: UTF-8
+LazyData: true
+URL: https://github.com/ranghetti/yieldmaps
+BugReports: https://github.com/ranghetti/yieldmaps/issues
+Imports:
+  graphics,
+  gstat,
+  sp,
+  shiny,
+  shinydashboard,
+  raster,
+  rgdal,
+  stringr,
+  methods,
+  data.table,
+  maptools,
+  parallel,
+  stats,
+  RJSONIO,
+  rgeos,
+  leaflet
+Suggests:
+  knitr,
+  rmarkdown
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
