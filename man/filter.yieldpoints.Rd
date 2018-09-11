@@ -3,9 +3,8 @@
 \name{filter.yieldpoints}
 \alias{filter.yieldpoints}
 \alias{filter.yieldpoints.reset}
-\alias{filter.yieldpoints.reset}
 \alias{filter.yieldpoints.resample}
-\title{Update filter values (altering the original dataframe)}
+\title{Update filter values}
 \usage{
 filter.yieldpoints(indata, metric, value, inlayer = NA, byfield = FALSE,
   samplesize = 1e+05)
@@ -28,29 +27,17 @@ filter.yieldpoints.resample(indata)
 \item{samplesize}{maximum size of the sample of the original data to work with (default: 100000; if NA: all the points)}
 
 \item{filters}{TODO}
-
-\item{indata}{TODO}
-
-\item{indata}{TODO}
 }
 \description{
-TODO
+\code{filter.yieldpoints} updates filter values (altering the original dataframe).
 
-TODO
+\code{filter.yieldpoints.reset} resets all filter values to FALSE (altering the original dataframe).
 
-TODO
+\code{filter.yieldpoints.resample} resets sampling order (altering the original dataframe).
 }
 \note{
 License: GPL 3.0
-
-License: GPL 3.0
-
-License: GPL 3.0
 }
 \author{
-Luigi Ranghetti, phD (2018) \email{ranghetti.l@irea.cnr.it}
-
-Luigi Ranghetti, phD (2018) \email{ranghetti.l@irea.cnr.it}
-
 Luigi Ranghetti, phD (2018) \email{ranghetti.l@irea.cnr.it}
 }

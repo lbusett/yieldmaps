@@ -1,8 +1,8 @@
 #' @title Class yield.data.table
-#' @name yield.data.table
+#' @name yield.data.table-class
 #' @rdname yield.data.table
-#' @description TODO
-#' @slot data `data.table` TODO
+#' @description `yield.data.table` is an R class for yield data.
+#' @slot datatable `data.table` TODO
 #' @slot comm_humid `numeric (1)` TODO
 #' @slot max_width `numeric (1)` TODO
 #' @slot time_step `numeric (1)` TODO
@@ -15,11 +15,11 @@
 #' @author Luigi Ranghetti, phD (2018) \email{ranghetti.l@@irea.cnr.it}
 #' @note License: GPL 3.0
 
-setClass(
+yield.data.table <- setClass(
   "yield.data.table",
   # contains = "data.table",
   slots = c(
-    data="data.table",
+    datatable="data.table",
     comm_humid="numeric",
     max_width="numeric",
     time_step="numeric",
@@ -47,10 +47,9 @@ setClass(
 )
 
 
-#' @title Create a yield.data.table object
-#' @name yield.data.table
+#' @name make.yield.data.table
 #' @rdname yield.data.table
-#' @description TODO
+#' @description `make.yield.data.table` creates a new `yield.data.table` object.
 #' @param datatable `data.table` TODO
 #' @param comm_humid `numeric (1)` TODO
 #' @param max_width `numeric (1)` TODO
@@ -60,10 +59,8 @@ setClass(
 #' @importFrom sp CRS
 #' @importFrom methods is setClass
 #' @export
-#' @author Luigi Ranghetti, phD (2018) \email{ranghetti.l@@irea.cnr.it}
-#' @note License: GPL 3.0
 
-yield.data.table <- function(
+make.yield.data.table <- function(
   datatable,
   comm_humid = as.numeric(NA),
   max_width = as.numeric(NA),

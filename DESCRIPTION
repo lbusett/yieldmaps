@@ -17,6 +17,7 @@ BugReports: https://github.com/ranghetti/yieldmaps/issues
 Imports:
   graphics,
   gstat,
+  ggplot2,
   sp,
   shiny,
   shinydashboard,

@@ -121,7 +121,7 @@ read.yielddata <- function(input, format, isdir=NA) {
     )
     # seas_conversion <- c("Frumento Tenero"=1, "Frumento Duro"=1, "Mais"=2, "Orzo Autunn"=1, "Soja"=2, "Riso Lungo"=2, "Riso Medio"=2,
     #                      "Misc Pannocchie"=2, "Mais insilato"=2, "Mais pastone"=2)
-    outdata <- yield.data.table(
+    outdata <- make.yield.data.table(
       rawdata[,list(
         uid=1:nrow(rawdata),
         sid=sample(nrow(rawdata)), # ID in raw order and sampled order

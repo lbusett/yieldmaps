@@ -30,10 +30,6 @@ krige_par <- function(
   maxdist = Inf
   ) {
 
-  require(parallel)
-  require(sp)
-  require(gstat)
-
   # check that modl is defined f method is krige
   if (method=="krige" & anyNA(model)) {
     stop("Argument 'model' is mandatory with method=\"krige\".")

@@ -1,5 +1,5 @@
-#' @title Update filter values (altering the original dataframe)
-#' @description TODO
+#' @title Update filter values
+#' @description `filter.yieldpoints` updates filter values (altering the original dataframe).
 #' @param indata TODO
 #' @param metric one between f_rangev, f_smv, f_mins, f_rangey, f_stdy, f_rangeq, f_pos
 #' @param value value or values to apply (depending on metric)
@@ -122,16 +122,12 @@ filter.yieldpoints <- function(
 }
 
 
-#' @title Reset all filter values to FALSE (altering the original dataframe)
 #' @name filter.yieldpoints.reset
 #' @rdname filter.yieldpoints
-#' @description TODO
-#' @param indata TODO
+#' @description `filter.yieldpoints.reset` resets all filter values to FALSE (altering the original dataframe).
 #' @param filters TODO
 #' @import data.table
 #' @export
-#' @author Luigi Ranghetti, phD (2018) \email{ranghetti.l@@irea.cnr.it}
-#' @note License: GPL 3.0
 
 filter.yieldpoints.reset <- function(indata, filters = NA) {
   outdata <- indata # no effect
@@ -145,16 +141,12 @@ filter.yieldpoints.reset <- function(indata, filters = NA) {
 }
 
 
-#' @title Reset sampling order (altering the original dataframe)
-#' @name filter.yieldpoints.reset
+#' @name filter.yieldpoints.resample
 #' @rdname filter.yieldpoints
-#' @description TODO
-#' @param indata TODO
+#' @description `filter.yieldpoints.resample` resets sampling order (altering the original dataframe).
 #' @import data.table
 #' @importFrom data.table setkey
 #' @export
-#' @author Luigi Ranghetti, phD (2018) \email{ranghetti.l@@irea.cnr.it}
-#' @note License: GPL 3.0
 
 filter.yieldpoints.resample <- function(indata) {
   outdata <- indata # no effect
