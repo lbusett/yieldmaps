@@ -28,7 +28,7 @@ function(input, output, session) {
   # fix multiple file inputs (e.g. shapefiles)
   observeEvent(input$rawdata_paths, {
     rv$vectfile_path <- tryCatch({
-      shiny_input_shapes(input$rawdata_paths, multiple = TRUE)
+      yieldmaps:::shiny_input_shapes(input$rawdata_paths, multiple = TRUE)
     }, error = function(e) {
       sendSweetAlert(
         session, title = "Error loading files",
@@ -78,7 +78,7 @@ function(input, output, session) {
   # fix multiple file inputs (e.g. shapefiles)
   observeEvent(input$fields_path, {
     rv$vectfields_path <- tryCatch({
-      shiny_input_shapes(input$fields_path, multiple = FALSE)
+      yieldmaps:::shiny_input_shapes(input$fields_path, multiple = FALSE)
     }, error = function(e) {
       sendSweetAlert(
         session, title = "Error loading files",
