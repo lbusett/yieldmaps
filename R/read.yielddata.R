@@ -2,16 +2,16 @@
 #' @description TODO
 #' @param input TODO
 #' @param format `character (1)` TODO
-#' @param isdir `logical` TODO
 #' @import data.table
 #' @importFrom data.table data.table fread rbindlist setkey
 #' @importFrom sp CRS
 #' @importFrom RJSONIO fromJSON
+#' @importFrom stringr str_pad
 #' @export
 #' @author Luigi Ranghetti, phD (2018) \email{ranghetti.l@@irea.cnr.it}
 #' @note License: GPL 3.0
 
-read.yielddata <- function(input, format, isdir=NA) {
+read.yielddata <- function(input, format) {
 
   # Import formats
   managed_formats <- fromJSON(
@@ -24,50 +24,10 @@ read.yielddata <- function(input, format, isdir=NA) {
   }
 
   # Read data
-  if (is.na(isdir)) {isdir <- managed_formats[[format]][["options"]][["isdir"]]}
 
-  if (isdir) { # if input is a directory, scanning it following the filter
+  rawdata <- foreach(j = seq_len(nrow(input)), .combine=rbind) %do% {
 
-    # Check that directory exists
-    if (!dir.exists(input)) {
-      stop(paste0("input value is not recognised as a valid directory; please edit it."))
-    }
-
-    # Check file names consistence
-    file_names <- list.files(input, managed_formats[[format]][["filename"]][["regex"]])
-    if (length(file_names)==0) {
-      stop(paste0("no files found: check that the file names agree with the standard of the format."))
-    }
-
-    # Read metadata
-    file_names_elements <- data.table("filename"=file_names)
-    for (i in managed_formats[[format]][["filename"]][["elements"]]) {
-      file_names_elements[,c(i):=gsub(
-        managed_formats[[format]][["filename"]][["regex"]],
-        paste0("\\",which(managed_formats[[format]][["filename"]][["elements"]]==i)),
-        filename
-      )]
-    }
-
-    # Read data
-    rawdata_list <- list()
-    for (single_file in file_names) {
-      tryCatch(
-        rawdata_list[[single_file]] <- fread(file.path(input,single_file)),
-        warning = print,
-        error = function(e) {
-          print(paste0("The file ",single_file," was not read due to the unrecognised format. Details: ",e))
-        }
-      )
-      # Assign metadata as replicated records
-      rawdata_list[[single_file]][,c(managed_formats[[format]][["filename"]][["elements"]]):=as.list(
-        file_names_elements[filename==single_file,-1]
-      )]
-    }
-    rawdata <- rbindlist(rawdata_list, use.names=TRUE, fill=TRUE)
-    rm(rawdata_list); gc()
-
-  } else { # if input is a file, read it
+    sel_input <- input[j,]
 
     # Read metadata
     file_name_elements <- NULL
@@ -75,20 +35,73 @@ read.yielddata <- function(input, format, isdir=NA) {
       file_name_elements[c(i)] <- gsub(
         managed_formats[[format]][["filename"]][["regex"]],
         paste0("\\",which(managed_formats[[format]][["filename"]][["elements"]]==i)),
-        basename(input)
+        basename(sel_input$name)
       )
     }
 
     tryCatch(
-      rawdata <- fread(input),
+      sel_rawdata <- fread(sel_input$datapath),
       warning = print,
       error = function(e) {
         print(paste0("The file ",input," was not read due to the unrecognised format. Details: ",e))
       }
     )
+
     # Assign metadata as replicated records
-    rawdata[,c(managed_formats[[format]][["filename"]][["elements"]]):=as.list(file_name_elements)]
-  }
+    sel_rawdata[,c(managed_formats[[format]][["filename"]][["elements"]]):=as.list(file_name_elements)]
+
+
+  } # end of sel_input FOR cycle
+
+
+
+
+  # # TODO import shapefiles
+  #
+  # # cycle on files
+  # for (sel_input in input) {
+  #
+  #   # Read metadata
+  #   file_name_elements <- NULL
+  #   for (i in managed_formats[[format]][["filename"]][["elements"]]) {
+  #     file_name_elements[c(i)] <- gsub(
+  #       managed_formats[[format]][["filename"]][["regex"]],
+  #       paste0("\\",which(managed_formats[[format]][["filename"]][["elements"]]==i)),
+  #       basename(sel_input)
+  #     )
+  #   }
+  #
+  #   tryCatch(
+  #     sel_rawdata <- sf::st_read(sel_input),
+  #     warning = print,
+  #     error = function(e) {
+  #       print(paste0("The file ",input," was not read due to the unrecognised format. Details: ",e))
+  #     }
+  #   )
+  #
+  #
+  #   names(sel_rawdata)
+  #
+  #   out_selrawdata <- sel_rawdata[,"geometry"]
+  #   for (sel_regex in managed_formats[[format]][["content"]][["fields"]]) {
+  #     out_selrawdata[,] <- grep(sel_regex, names(sel_rawdata))[1]
+  #   }
+  #   sel_rawdata[,sel_rawdata_ncols[!is.na(sel_rawdata_ncols)]]
+  #
+  #
+  #
+  #   # Assign metadata as replicated records
+  #   rawdata[,c(managed_formats[[format]][["filename"]][["elements"]]):=as.list(file_name_elements)]
+  #
+  # } # end of input FOR cycle
+  #
+
+
+  ## Add leading zeros to idfield
+  rawdata[,idfield:=paste0(
+    str_pad(gsub("(^[0-9]+)([a-zA-Z]?$)","\\1",idfield), 4, "left", "0"),
+    gsub("(^[0-9]+)([a-zA-Z]?$)","\\2",idfield)
+  )]
 
   # Convert in the output format
   # FIXME questa parte va modificata sulle indicazioni di Alberto (quali campi servono; modo corretto per calcolarli)
@@ -149,7 +162,7 @@ read.yielddata <- function(input, format, isdir=NA) {
 
   }
 
-  setkey(outdata@data,sid)
+  setkey(outdata@datatable,sid)
   return(outdata) #temp
 
 }

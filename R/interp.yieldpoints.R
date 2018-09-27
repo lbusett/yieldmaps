@@ -34,7 +34,7 @@ interp.yieldpoints <- function(
   focal_types = NULL, # smoothing filters to be applied (vector of types of focalWeight())
   focal_d = NULL, # list of filter parameters (of)see argument d of focalWeight())
   border = 0, # border (in crs unit) to be cut
-  outdir = tempdir(), # directory where rasters are stores
+  outdir = tempfile(), # directory where rasters are stores
   outname = NA, # name of the output tif
   samplesize=1E4, # maximum size of the sample of the original data to work with (default: 10000; if NA: all the points)
   nmax=1E3, # argument of krige() and idw()
@@ -89,7 +89,8 @@ interp.yieldpoints <- function(
   yieldgrid <- yieldgrid[gBuffer(field_poly,width=-(border+globgrid@grid@cellsize[1]/2)),]
   # create buffered grid (for focals)
   field_poly_buf <- gBuffer(field_poly, width=globgrid@grid@cellsize[1]*d_buffer)
-  yieldgrid_buf <- as(crop(raster(globgrid), field_poly_buf), "SpatialPixelsDataFrame")
+  yieldgrid_buf <- as(crop(raster(globgrid), field_poly_buf), "SpatialPixels")
+  yieldgrid_buf <- SpatialPixelsDataFrame(yieldgrid_buf, data = data.frame("band1"=rep(as.numeric(NA),length(yieldgrid_buf))))
   yieldgrid_buf <- yieldgrid_buf[field_poly_buf,]
 
 
@@ -109,7 +110,7 @@ interp.yieldpoints <- function(
     }
   }
 
-  dir.create(file.path(outdir,"interp"), recursive=TRUE, showWarnings=FALSE)
+  dir.create(file.path(outdir,"interp"), recursive=FALSE, showWarnings=FALSE)
   writeGDAL(crop_raster["var1.pred"],file.path(outdir,"interp",outname), options='COMPRESS=DEFLATE')
   print(file.path(outdir,outname))
 
@@ -118,7 +119,7 @@ interp.yieldpoints <- function(
   # raster_crop_var <- raster(interp_raster["var1.var"])
   raster_crop_pred_avg <- yieldgrid_buf
   raster_crop_pred_avg$band1 <- mean(interp_raster$var1.pred, na.rm=TRUE)
-  raster_crop_pred <- merge(raster(interp_raster["var1.pred"]), raster(raster_crop_pred_avg))
+  raster_crop_pred <- raster::merge(raster(interp_raster["var1.pred"]), raster(raster_crop_pred_avg))
 
   # apply filters
   for (i in seq_along(focal_types)) {

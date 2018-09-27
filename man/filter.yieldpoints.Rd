@@ -6,8 +6,8 @@
 \alias{filter.yieldpoints.resample}
 \title{Update filter values}
 \usage{
-filter.yieldpoints(indata, metric, value, inlayer = NA, byfield = FALSE,
-  samplesize = 1e+05)
+filter.yieldpoints(indata, metric, value, inlayer = NA,
+  id_fieldname = "idfield", byfield = FALSE, samplesize = 1e+05)
 
 filter.yieldpoints.reset(indata, filters = NA)
 
@@ -20,9 +20,11 @@ filter.yieldpoints.resample(indata)
 
 \item{value}{value or values to apply (depending on metric)}
 
-\item{inlayer}{optional: SpatialPolygonsDataFrame of fields (a field "idfield" must be present if byfield is TRUE)}
+\item{inlayer}{optional: SpatialPolygonsDataFrame of fields (see also \code{id_fieldname})}
 
-\item{byfield}{if FALSE (default), consider data as a unique field; if TRUE, iterate each filter on field "idfield"}
+\item{id_fieldname}{optional: name of the \code{inlayer} field containing unique ID of fields (default: "idfield")}
+
+\item{byfield}{if FALSE (default), consider data as a unique field; if TRUE, iterate each filter on field `id_fieldname``}
 
 \item{samplesize}{maximum size of the sample of the original data to work with (default: 100000; if NA: all the points)}
 

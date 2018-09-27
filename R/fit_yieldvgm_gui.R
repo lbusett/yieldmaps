@@ -14,7 +14,7 @@
 #' @author Luigi Ranghetti, phD (2018) \email{ranghetti.l@@irea.cnr.it}
 #' @note License: GPL 3.0
 
-fit.yieldvgm.gui <- function(indata) {
+fit_yieldvgm_gui <- function(indata) {
 
   indata_sp <- yield.makespdf(indata, outcrs = CRS("+init=epsg:3035"))
 
@@ -71,7 +71,7 @@ fit.yieldvgm.gui <- function(indata) {
                 ),
 
                 # Save button
-                tags$head(tags$script(src = "message-handler.js")),
+                shiny::tags$head(shiny::tags$script(src = "message-handler.js")),
                 actionButton("save_vgm", "Save variogram parameters")
 
               ),
@@ -136,7 +136,7 @@ fit.yieldvgm.gui <- function(indata) {
       fitVgm <- observeEvent(input$fit_vgm, {
         fit_vgm <- function() {fit.variogram(v(), v.man())}
         suppressWarnings(v.man <- fit_vgm())
-        output$err_fit_vgm <- if (tryCatch(fit_vgm(),warning=function(w){"warning"})=="warning") {
+        output$err_fit_vgm <- if (is(tryCatch(fit_vgm(),warning=function(w){"warning"}), "variogramModel")) {
           renderUI({HTML("<font color=\"#FF0000\">Singular fit: values can be unsuitable. Please try after having manually edited values.</font>")})
         } else {
           renderUI({HTML("<font color=\"#008800\">Automatic fit runned without errors.</font>")})

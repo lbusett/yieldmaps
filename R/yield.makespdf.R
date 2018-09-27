@@ -12,8 +12,8 @@ yield.makespdf <- function(
   outcrs = CRS("+init=epsg:3035")
 ) {
   # create SPDF from points
-  indata_sp <- indata@data[filter==FALSE,list(sid,idfield,crop,year,yield)]
-  coordinates(indata_sp) <- indata@data[filter==FALSE,list(lon,lat)]
+  indata_sp <- indata@datatable[filter==FALSE,list(sid,idfield,crop,year,yield)]
+  sp::coordinates(indata_sp) <- indata@datatable[filter==FALSE,list(lon,lat)]
   indata_sp@proj4string <- indata@crs
   indata_sp$sid <- rank(indata_sp$sid)
   if (!compareCRS(outcrs,indata_sp@proj4string)) {

@@ -9,6 +9,10 @@
 #' @note License: GPL 3.0
 
 aeqd.buffer <- function(poly, width) {
+  # from sf to sp (TODO improve checks)
+  if (!is(poly, "Spatial")) {
+    poly <- as(poly, "Spatial")
+  }
   p <- gCentroid(poly,byid=FALSE)
   projected <- if (!is.projected(p)) {
     aeqd <- sprintf("+proj=aeqd +lat_0=%s +lon_0=%s +x_0=0 +y_0=0",

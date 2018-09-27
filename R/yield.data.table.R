@@ -27,7 +27,7 @@ yield.data.table <- setClass(
     format="character"
   ),
   validity = function(object) {
-    if (!is.data.table(object@data))
+    if (!is.data.table(object@datatable))
       return("data slot is not a data.table")
     # FIXME dd check on colnames and filters
     if (!is.numeric(object@comm_humid))
@@ -70,7 +70,7 @@ make.yield.data.table <- function(
 ) {
   new(
     "yield.data.table",
-    data = datatable,
+    datatable = datatable,
     comm_humid = comm_humid,
     max_width = max_width,
     time_step = time_step,

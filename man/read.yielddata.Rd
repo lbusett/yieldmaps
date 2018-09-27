@@ -4,14 +4,12 @@
 \alias{read.yielddata}
 \title{Read yield data}
 \usage{
-read.yielddata(input, format, isdir = NA)
+read.yielddata(input, format)
 }
 \arguments{
 \item{input}{TODO}
 
 \item{format}{\code{character (1)} TODO}
-
-\item{isdir}{\code{logical} TODO}
 }
 \description{
 TODO

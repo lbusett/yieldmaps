@@ -21,6 +21,8 @@ Imports:
   sp,
   shiny,
   shinydashboard,
+  shinyFiles,
+  shinyjs,
   raster,
   rgdal,
   stringr,
@@ -31,7 +33,8 @@ Imports:
   stats,
   RJSONIO,
   rgeos,
-  leaflet
+  leaflet,
+  magrittr
 Suggests:
   knitr,
   rmarkdown

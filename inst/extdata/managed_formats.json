@@ -14,5 +14,23 @@
       "isdir": true
     }
   },
+  "custom_ibf": {
+    "filename": {
+      "regex": "^[A-Za-z]+\\_id\\_geom\\_([0-9a-z]+).shp$",
+      "elements": [ "idfield" ]
+    },
+    "content": {
+      "fields": {
+        "regex": ["((RESAKG)|(YIELD_KG))", "((UMIDITA)|(MOISTURE))", "((AREA)|(AREA_MQ))", "anno", "raccolto" ],
+        "name": ["yield", "humidity", "year", "date", "crop", "yield_dry", "speed", "rel_width" ]
+      },
+      "caption": true,
+      "format": "shp",
+      "sep": ","
+    },
+    "options": {
+      "isdir": false
+    }
+  },
   "johndeere": null
 }
