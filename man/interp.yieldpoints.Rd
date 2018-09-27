@@ -6,7 +6,7 @@
 \usage{
 interp.yieldpoints(indata_sp, field_poly, vgm.fit, globgrid, method = "krige",
   n_cores = 1, focal_types = NULL, focal_d = NULL, border = 0,
-  outdir = tempdir(), outname = NA, samplesize = 10000, nmax = 1000,
+  outdir = tempfile(), outname = NA, samplesize = 10000, nmax = 1000,
   maxdist = Inf)
 }
 \arguments{

@@ -1,3 +1,11 @@
+#' @title Load shapefiles from UI
+#' @description internal TODO
+#' @slot input_paths TODO
+#' @slot multiple TODO
+#' @importFrom foreach foreach "%do%" is setClass
+#' @author Luigi Ranghetti, phD (2018) \email{ranghetti.l@@irea.cnr.it}
+#' @note License: GPL 3.0
+
 shiny_input_shapes <- function(input_paths,
                                multiple = TRUE) {
 

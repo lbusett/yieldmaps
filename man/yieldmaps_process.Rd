@@ -5,8 +5,8 @@
 \title{Process a group of fields}
 \usage{
 yieldmaps_process(rese_input, inlayer, grid_path = NA, filtered = TRUE,
-  id_fieldname = "idfield", out_crs = NA, samplesize = 10000,
-  buffer_radius = 15, vgm = NA)
+  id_fieldname = "idfield", interp_dir = tempfile(), out_crs = NA,
+  samplesize = 10000, buffer_radius = 15, vgm = NA)
 }
 \arguments{
 \item{rese_input}{TODO}
@@ -19,6 +19,8 @@ yieldmaps_process(rese_input, inlayer, grid_path = NA, filtered = TRUE,
 no additional filter is applied; if FALSE, a standard automatic filter is applied.}
 
 \item{id_fieldname}{optional: name of the \code{inlayer} field containing unique ID of fields (default: "idfield")}
+
+\item{interp_dir}{directory where rasters are stores (default: temporary directory)}
 
 \item{out_crs}{optional: CRS of output raster (default: CRS of rese_input)}
 
