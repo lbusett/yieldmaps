@@ -15,6 +15,7 @@ function(input, output, session) {
   require(leaflet)
   require(methods)
   require(RJSONIO)
+  require(yieldmaps)
 
   rv <- reactiveValues()
 
